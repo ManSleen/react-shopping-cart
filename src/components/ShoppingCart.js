@@ -13,12 +13,16 @@ const ShoppingCart = () => {
       .toFixed(2);
   };
 
-  const { cart } = useContext(CartContext);
+  const { cart, removeItem } = useContext(CartContext);
   return (
     <div className="shopping-cart">
-      {cart.map(item => (
-        <Item key={item.id} {...item} />
-      ))}
+      {cart ? (
+        cart.map(item => (
+          <Item removeItem={removeItem} key={item.id} {...item} />
+        ))
+      ) : (
+        <div>Loading</div>
+      )}
 
       <div className="shopping-cart__checkout">
         <p>Total: ${getCartTotal()}</p>
